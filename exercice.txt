@@ -1,0 +1,33 @@
+	Exercice 1
+
+SELECT nom_lieu, COUNT(*) AS nbVillageois
+FROM lieu l, villageois v
+WHERE l.ID_LIEU = v.ID_LIEU
+GROUP BY nom_lieu
+ORDER BY nbVillageois DESC
+
+	Exercice 2
+
+SELECT nom, nom_specialite, nom_lieu
+FROM specialite spe, lieu l, villageois v
+WHERE spe.ID_SPECIALITE = V.ID_SPECIALITE
+AND l.ID_LIEU = v.ID_LIEU
+ORDER BY nom
+
+	Exercice 3
+
+SELECT nom_specialite, COUNT(*) AS nbVillageois
+FROM specialite s, villageois v
+WHERE s.ID_SPECIALITE = v.ID_SPECIALITE
+GROUP BY nom_specialite
+ORDER BY nbVillageois DESC
+
+	Exercice 4
+
+SELECT nom_bataille, DATE_FORMAT(date_bataille, "%D %b %Y"), nom_lieu
+FROM bataille b, lieu l
+WHERE l.ID_LIEU = b.ID_LIEU
+ORDER BY date_bataille DESC
+
+	Exercice 5
+
