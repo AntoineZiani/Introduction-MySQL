@@ -31,3 +31,11 @@ ORDER BY date_bataille DESC
 
 	Exercice 5
 
+SELECT nom_potion, SUM(cout_ingredient*qte) AS cout
+FROM potion p, compose c, ingredient i
+WHERE p.ID_POTION = c.ID_POTION
+AND i.ID_INGREDIENT = c.ID_INGREDIENT
+GROUP BY nom_potion
+ORDER BY cout DESC
+
+	Exercice 6
