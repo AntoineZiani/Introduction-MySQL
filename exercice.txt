@@ -1,30 +1,4 @@
-	Exercice 1
-
-SELECT nom_lieu, COUNT(*) AS nbVillageois
-FROM lieu l, villageois v
-WHERE l.ID_LIEU = v.ID_LIEU
-GROUP BY nom_lieu
-ORDER BY nbVillageois DESC
-
-	Exercice 2
-
-SELECT nom, nom_specialite, nom_lieu
-FROM specialite spe, lieu l, villageois v
-WHERE spe.ID_SPECIALITE = V.ID_SPECIALITE
-AND l.ID_LIEU = v.ID_LIEU
-ORDER BY nom
-
-	Exercice 3
-
-SELECT nom_specialite, COUNT(*) AS nbVillageois
-FROM specialite s, villageois v
-WHERE s.ID_SPECIALITE = v.ID_SPECIALITE
-GROUP BY nom_specialite
-ORDER BY nbVillageois DESC
-
-	Exercice 4
-
-SELECT nom_bataille, DATE_FORMAT(date_bataille, "%D %b %Y"), nom_lieu
+	SELECT nom_bataille, DATE_FORMAT(date_bataille, "%D %b %Y"), nom_lieu
 FROM bataille b, lieu l
 WHERE l.ID_LIEU = b.ID_LIEU
 ORDER BY date_bataille DESC
@@ -39,3 +13,71 @@ GROUP BY nom_potion
 ORDER BY cout DESC
 
 	Exercice 6
+
+SELECT nom_ingredient, cout_ingredient, qte
+FROM potion p, ingredient i, compose c
+WHERE p.ID_POTION = c.ID_POTION
+AND i.ID_INGREDIENT = c.ID_INGREDIENT
+AND p.NOM_POTION = 'Potion V'
+
+	Exercice 7
+
+SELECT nom, SUM(qte) AS total
+FROM prise_casque pc, villageois v, bataille b
+WHERE pc.ID_VILLAGEOIS = v.ID_VILLAGEOIS
+AND pc.ID_BATAILLE = b.ID_BATAILLE
+AND nom_bataille = 'Babaorum'
+GROUP BY nom
+HAVING total >= ALL(
+		SELECT SUM(qte)
+		FROM prise_casque pc, bataille b
+		WHERE pc.ID_BATAILLE = b.ID_BATAILLE
+		AND nom_bataille = 'Babaorum'
+		GROUP BY pc.ID_VILLAGEOIS)
+
+	Exercice 8
+
+SELECT nom, SUM(dose) AS qte_bue
+FROM villageois v, boit b
+WHERE v.ID_VILLAGEOIS = b.ID_VILLAGEOIS
+GROUP BY nom
+ORDER BY qte_bue DESC
+
+	Exercice 9
+
+
+	Exercice 10
+
+SELECT nom_type_casque, COUNT(*) AS nbCasques, SUM(cout_casque) AS cout
+FROM type_casque tc, casque c
+WHERE tc.ID_TYPE_CASQUE = c.ID_TYPE_CASQUE
+GROUP BY nom_type_casque
+ORDER BY nbCasques DESC
+
+	Exercice 11
+
+SELECT nom_potion
+FROM compose c, ingredient i, potion p
+WHERE c.ID_INGREDIENT = i.ID_INGREDIENT
+AND p.ID_POTION = c.ID_POTION
+AND nom_ingredient = "cerise"
+
+	Exercice 12
+
+
+
+	Exercice 13
+
+SELECT nom
+FROM villageois v
+WHERE v.ID_VILLAGEOIS NOT IN (
+		SELECT b.id_villageois
+		FROM boit b)
+
+	Exercice 14
+
+SELECT nom_lieu
+FROM lieu
+WHERE nom_lieu LIKE "%um%"
+
+	Exercice 15
